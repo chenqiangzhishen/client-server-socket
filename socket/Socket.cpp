@@ -189,3 +189,11 @@ void Socket::set_non_blocking ( const bool b )
             F_SETFL,opts );
 
 }
+
+/*
+void Socket::Close()
+{
+		close(m_sock);
+}
+*/
+

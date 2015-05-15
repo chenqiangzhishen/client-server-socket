@@ -11,7 +11,7 @@ int main ( void )
     try
     {
         // Create the socket
-        ServerSocket server ( 30000 );
+        ServerSocket server ( 33333 );
 
         while ( true )
         {

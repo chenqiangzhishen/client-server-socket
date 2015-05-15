@@ -15,7 +15,9 @@ public:
 
     const ClientSocket& operator << ( const std::string& ) const;
     const ClientSocket& operator >> ( std::string& ) const;
-
+	
+    bool m_isFree;
+    bool m_isDead;
 };
 
 

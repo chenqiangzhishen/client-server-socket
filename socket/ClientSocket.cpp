@@ -6,6 +6,9 @@
 
 ClientSocket::ClientSocket ( std::string host, int port )
 {
+    m_isFree = true;
+    m_isDead = false;
+
     if ( ! Socket::create() )
     {
         throw SocketException ( "Could not create client socket." );
@@ -13,6 +16,8 @@ ClientSocket::ClientSocket ( std::string host, int port )
 
     if ( ! Socket::connect ( host, port ) )
     {
+        m_isFree = false;
+        m_isDead = true;
         throw SocketException ( "Could not bind to port." );
     }
 
