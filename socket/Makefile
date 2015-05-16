@@ -1,28 +1,46 @@
-# Makefile for the socket 
-#
+TARGET = server client
+OBJ_PATH = objs
+PREFIX_BIN =
 
-server_objects = ServerSocket.o Socket.o ServerMain.o
-client_objects = ClientSocket.o Socket.o ConnectionPool.o ClientMain.o
-#conn_pool_objects = ConnectionPool.o
+CC = g++
+INCLUDES = -I include
+LIBS =
+CFLAGS = -g
+LINKFLAGS =
+
+SRCDIR = src/json src/socket
+
+#CPP_SOURCES = $(wildcard *.cpp)
+CPP_SRCDIR = $(SRCDIR)
+CPP_SOURCES = $(foreach d,$(CPP_SRCDIR),$(wildcard $(d)/*.cpp) )
+CPP_OBJS = $(patsubst %.cpp, $(OBJ_PATH)/%.o, $(CPP_SOURCES))
+
+#all : server client
+
+default:init compile
 
 
-all : server client
+$(CPP_OBJS):$(OBJ_PATH)/%.o:%.cpp
+	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
 
-server: $(server_objects)
-	g++ -o server $(server_objects)
+init:
+	$(foreach d,$(SRCDIR), mkdir -p $(OBJ_PATH)/$(d);)
 
+test:
+	@echo "CPP_SOURCES: $(CPP_SOURCES)"
+	@echo "CPP_OBJS: $(CPP_OBJS)"
 
-client: $(client_objects)
-	g++ -o client $(client_objects)  -lpthread
-
-
-Socket: Socket.cpp
-ServerSocket: ServerSocket.cpp
-ClientSocket: ClientSocket.cpp 
-ServerMain: ServerMain.cpp
-ClientMain: ClientMain.cpp ConnectionPool.cpp
-ConnectionPool: ConnectionPool.cpp ClientSocket.cpp
-
+compile:$(C_OBJS) $(CPP_OBJS)
+	$(CC)  $^ -o $(TARGET)  $(LINKFLAGS) $(LIBS)
 
 clean:
-	rm -f *.o server client
+	rm -rf $(OBJ_PATH)
+	rm -f $(TARGET)
+
+install: $(TARGET)
+	cp $(TARGET) $(PREFIX_BIN)
+
+uninstall:
+	rm -f $(PREFIX_BIN)/$(TARGET)
+
+rebuild: clean compile
