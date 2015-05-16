@@ -2,17 +2,17 @@
 
 #ifndef ServerSocket_class
 #define ServerSocket_class
-#include  <stdio.h>   
+#include  <stdio.h>
 #include <stdlib.h>
-#include  <iostream>   
+#include  <iostream>
 #include <string.h>
-#include  <unistd.h>   
-#include  <fcntl.h>   
-#include  <errno.h>  
-#include  <sys/types.h>  
-#include  <sys/socket.h>   
+#include  <unistd.h>
+#include  <fcntl.h>
+#include  <errno.h>
+#include  <sys/types.h>
+#include  <sys/socket.h>
 #include <pthread.h>
-#include  <sys/epoll.h> 
+#include  <sys/epoll.h>
 #include "Socket.h"
 
 
@@ -38,7 +38,7 @@ public:
     void run(int time_out);
 
 private:
-   int m_listen_sock;
+    int m_listen_sock;
     int m_epoll_fd;
     int m_max_count;
     struct epoll_event *m_epoll_events;

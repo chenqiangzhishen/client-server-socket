@@ -5,22 +5,6 @@ using namespace std;
 
 ServerSocket::ServerSocket ( )
 {
-    /*
-        if ( ! Socket::create() )
-        {
-            throw SocketException ( "Could not create server socket." );
-        }
-
-        if ( ! Socket::bind ( port ) )
-        {
-            throw SocketException ( "Could not bind to port." );
-        }
-
-        if ( ! Socket::listen() )
-        {
-            throw SocketException ( "Could not listen to socket." );
-        }
-    	*/
 
     m_listen_sock = 0;
     m_epoll_fd = 0;
@@ -46,7 +30,7 @@ ServerSocket::~ServerSocket()
 bool ServerSocket::init(int port , int sock_count)
 {
     m_max_count = sock_count;
-    
+
     struct sockaddr_in server_addr;
     memset(&server_addr, 0, sizeof(&server_addr));
     server_addr.sin_family = AF_INET;
@@ -56,42 +40,26 @@ bool ServerSocket::init(int port , int sock_count)
     m_listen_sock = ::socket(AF_INET, SOCK_STREAM, 0);
     if(m_listen_sock == -1)
     {
-		cout << "creat socket error" <<endl;
+        cout << "creat socket error" <<endl;
         exit(1);
     }
 
     if(::bind(m_listen_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1)
     {
-		cout << "bind socket error" <<endl;
+        cout << "bind socket error" <<endl;
         exit(1);
     }
 
     if(::listen(m_listen_sock, 5) == -1)
     {
-		cout << "listen socket error" <<endl;
+        cout << "listen socket error" <<endl;
         exit(1);
     }
-    /*
-    if ( ! Socket::create() )
-    {
-        throw SocketException ( "Could not create server socket." );
-    }
-
-    if ( ! Socket::bind ( port ) )
-    {
-        throw SocketException ( "Could not bind to port." );
-    }
-
-    if ( ! Socket::listen() )
-    {
-        throw SocketException ( "Could not listen to socket." );
-    }
-	*/
 
     m_epoll_events = new struct epoll_event[sock_count];
     if (m_epoll_events == NULL)
     {
-		cout << "m_epoll_events error"<<endl;
+        cout << "m_epoll_events error"<<endl;
         exit(-1);
     }
 
@@ -102,53 +70,53 @@ bool ServerSocket::init(int port , int sock_count)
     epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, m_listen_sock, &ev);
 }
 
-bool ServerSocket::init(const char* ip, int port , int sock_count)  
-{     
-    m_max_count = sock_count;  
-    struct sockaddr_in server_addr;  
-    memset(&server_addr, 0, sizeof(&server_addr));  
-    server_addr.sin_family = AF_INET;  
-    server_addr.sin_port = htons(port);  
-    server_addr.sin_addr.s_addr = inet_addr(ip);          
-  
-    m_listen_sock = ::socket(AF_INET, SOCK_STREAM, 0);  
-    if(m_listen_sock == -1)  
-    {  
-        exit(1);  
-    }  
-      
-    if(::bind(m_listen_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1)  
-    {  
-        exit(1);  
-    }  
-      
-    if(::listen(m_listen_sock, 5) == -1)  
-    {  
-        exit(1);  
-    }  
-  
-    m_epoll_events = new struct epoll_event[sock_count];  
-    if (m_epoll_events == NULL)  
-    {  
-        exit(1);  
-    }  
-  
-    m_epoll_fd = epoll_create(sock_count);  
-    struct epoll_event ev;  
-    ev.data.fd = m_listen_sock;  
-    ev.events  = EPOLLIN;  
-    epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, m_listen_sock, &ev);  
-}  
+bool ServerSocket::init(const char* ip, int port , int sock_count)
+{
+    m_max_count = sock_count;
+    struct sockaddr_in server_addr;
+    memset(&server_addr, 0, sizeof(&server_addr));
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(port);
+    server_addr.sin_addr.s_addr = inet_addr(ip);
+
+    m_listen_sock = ::socket(AF_INET, SOCK_STREAM, 0);
+    if(m_listen_sock == -1)
+    {
+        exit(1);
+    }
+
+    if(::bind(m_listen_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1)
+    {
+        exit(1);
+    }
+
+    if(::listen(m_listen_sock, 5) == -1)
+    {
+        exit(1);
+    }
+
+    m_epoll_events = new struct epoll_event[sock_count];
+    if (m_epoll_events == NULL)
+    {
+        exit(1);
+    }
+
+    m_epoll_fd = epoll_create(sock_count);
+    struct epoll_event ev;
+    ev.data.fd = m_listen_sock;
+    ev.events  = EPOLLIN;
+    epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, m_listen_sock, &ev);
+}
 
 int ServerSocket::accept_new_client()
 {
-	sockaddr_in client_addr;
+    sockaddr_in client_addr;
     memset(&client_addr, 0, sizeof(client_addr));
     socklen_t clilen = sizeof(struct sockaddr);
     int new_sock = ::accept(m_listen_sock, (struct sockaddr*)&client_addr, &clilen);
 
 
-	struct epoll_event ev;
+    struct epoll_event ev;
     ev.data.fd = new_sock;
     ev.events  = EPOLLIN;
     epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, new_sock, &ev);
@@ -255,14 +223,14 @@ const ServerSocket& ServerSocket::operator >> ( std::string& s ) const
 
 int ServerSocket::epoll_server_wait(int time_out)
 {
-	return epoll_wait(m_epoll_fd, m_epoll_events, m_max_count, time_out);
+    return epoll_wait(m_epoll_fd, m_epoll_events, m_max_count, time_out);
 }
 
 void ServerSocket::run(int time_out)
 {
     char *recv_buf = new char[65535];
     char *send_buf = new char[65535];
-	int ret;
+    int ret;
     while(1)
     {
         int ret = epoll_server_wait(time_out);

@@ -42,10 +42,10 @@ public:
     bool is_valid() const {
         return m_sock != -1;
     }
-   
+
 private:
 
-	int m_sock;
+    int m_sock;
     sockaddr_in m_addr;
 
 
