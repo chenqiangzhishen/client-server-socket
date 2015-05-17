@@ -32,27 +32,27 @@ SharedAppenderPtr pFileAppender;
 void writelog(char* leval,char* info)
 {
     struct tm *p;
-    time_t lt=time(NULL);
-    p=localtime(&lt);
-    char* timetemp=ctime(&lt);
-    *(timetemp+strlen(timetemp)-1)='\0';
+    time_t lt = time(NULL);
+    p = localtime(&lt);
+    char* timetemp = ctime(&lt);
+    *(timetemp + strlen(timetemp)-1) = '\0';
     char temp[10000];
-    sprintf(temp,"[%s] %s",timetemp,info);
+    sprintf(temp, "[%s] %s", timetemp, info);
     //printf("temp==%s",temp);
     //printf("leval====%s ",leval);
-    if(memcmp(leval,"TRACE",5)==0)
+    if(memcmp(leval, "TRACE", 5)==0)
         // printf("%d===%d",memcmp("TRACE","TRAC1E",5),memcmp(leval,"TRACE",5));
-        LOG4CPLUS_TRACE(pSocketLogger,temp);
-    if(memcmp(leval,"DEBUG",5)==0)
-        LOG4CPLUS_DEBUG(pSocketLogger,temp);
-    if(memcmp(leval,"INFO",4)==0)
-        LOG4CPLUS_INFO(pSocketLogger,temp);
-    if(memcmp(leval,"WARN",4)==0)
-        LOG4CPLUS_WARN(pSocketLogger,temp);
-    if(memcmp(leval,"ERROR",5)==0)
-        LOG4CPLUS_ERROR(pSocketLogger,temp);
-    if(memcmp(leval,"FATAL",5)==0)
-        LOG4CPLUS_FATAL(pSocketLogger,temp);
+        LOG4CPLUS_TRACE(pSocketLogger, temp);
+    if(memcmp(leval,"DEBUG", 5) == 0)
+        LOG4CPLUS_DEBUG(pSocketLogger, temp);
+    if(memcmp(leval,"INFO", 4) == 0)
+        LOG4CPLUS_INFO(pSocketLogger, temp);
+    if(memcmp(leval,"WARN", 4) == 0)
+        LOG4CPLUS_WARN(pSocketLogger, temp);
+    if(memcmp(leval,"ERROR", 5) == 0)
+        LOG4CPLUS_ERROR(pSocketLogger, temp);
+    if(memcmp(leval,"FATAL", 5) == 0)
+        LOG4CPLUS_FATAL(pSocketLogger, temp);
 }
 
 void *thread_function(void *arg)
@@ -123,7 +123,7 @@ int main ( void )
     struct tm *p;
     time_t lt = time(NULL);
     p = localtime(&lt);
-    sprintf(filename,"%d-%d-%d.txt",(1900+p->tm_year), (1+p->tm_mon),p->tm_mday);
+    sprintf(filename, "%d-%d-%d.txt", (1900+p->tm_year), (1+p->tm_mon), p->tm_mday);
     pthread_t thread;
 
     if(0 != pthread_create(&thread, NULL, thread_function, NULL))
@@ -140,7 +140,6 @@ int main ( void )
         cin.clear();
     }
     cout << "Terminate the thread now." << endl;
-
 
     cout << "Wait for thread to exit" << endl;
 

@@ -297,14 +297,20 @@ void ServerSocket::run(int time_out)
                     {
                         int recv_count = recv_data(m_epoll_events[i].data.fd, recv_buf);
                         cout<<recv_buf<<endl;
+
                         Json::Reader reader;
                         Json::Value value;
+                        //Json format deserialization from string to Json
                         if(reader.parse(recv_buf, value))
                         {
+                            //server key_id ++ ;
                             key_id = value["key_id"].asInt() + 1;
                         }
+
                         sm::SocketMessage sockMessage;
+                        // Server initialize protobuf format.
                         sockMessage.set_received_key_id_plus_1(key_id);
+                        // serialize the protobuf format to string.
                         if( !sockMessage.SerializeToString(&recv_str))
                         {
                             cerr << "Failed to write protobuf" << endl;

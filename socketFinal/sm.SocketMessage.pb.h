@@ -38,86 +38,84 @@ class SocketMessage;
 // ===================================================================
 
 class SocketMessage : public ::google::protobuf::Message {
-public:
-    SocketMessage();
-    virtual ~SocketMessage();
+ public:
+  SocketMessage();
+  virtual ~SocketMessage();
 
-    SocketMessage(const SocketMessage& from);
+  SocketMessage(const SocketMessage& from);
 
-    inline SocketMessage& operator=(const SocketMessage& from) {
-        CopyFrom(from);
-        return *this;
-    }
+  inline SocketMessage& operator=(const SocketMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
 
-    inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-        return _unknown_fields_;
-    }
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
 
-    inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-        return &_unknown_fields_;
-    }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
 
-    static const ::google::protobuf::Descriptor* descriptor();
-    static const SocketMessage& default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const SocketMessage& default_instance();
 
-    void Swap(SocketMessage* other);
+  void Swap(SocketMessage* other);
 
-    // implements Message ----------------------------------------------
+  // implements Message ----------------------------------------------
 
-    SocketMessage* New() const;
-    void CopyFrom(const ::google::protobuf::Message& from);
-    void MergeFrom(const ::google::protobuf::Message& from);
-    void CopyFrom(const SocketMessage& from);
-    void MergeFrom(const SocketMessage& from);
-    void Clear();
-    bool IsInitialized() const;
+  SocketMessage* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const SocketMessage& from);
+  void MergeFrom(const SocketMessage& from);
+  void Clear();
+  bool IsInitialized() const;
 
-    int ByteSize() const;
-    bool MergePartialFromCodedStream(
-        ::google::protobuf::io::CodedInputStream* input);
-    void SerializeWithCachedSizes(
-        ::google::protobuf::io::CodedOutputStream* output) const;
-    ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-    int GetCachedSize() const {
-        return _cached_size_;
-    }
-private:
-    void SharedCtor();
-    void SharedDtor();
-    void SetCachedSize(int size) const;
-public:
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
 
-    ::google::protobuf::Metadata GetMetadata() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
-    // nested types ----------------------------------------------------
+  // nested types ----------------------------------------------------
 
-    // accessors -------------------------------------------------------
+  // accessors -------------------------------------------------------
 
-    // required int32 received_key_id_plus_1 = 1;
-    inline bool has_received_key_id_plus_1() const;
-    inline void clear_received_key_id_plus_1();
-    static const int kReceivedKeyIdPlus1FieldNumber = 1;
-    inline ::google::protobuf::int32 received_key_id_plus_1() const;
-    inline void set_received_key_id_plus_1(::google::protobuf::int32 value);
+  // required int32 received_key_id_plus_1 = 1;
+  inline bool has_received_key_id_plus_1() const;
+  inline void clear_received_key_id_plus_1();
+  static const int kReceivedKeyIdPlus1FieldNumber = 1;
+  inline ::google::protobuf::int32 received_key_id_plus_1() const;
+  inline void set_received_key_id_plus_1(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:sm.SocketMessage)
-private:
-    inline void set_has_received_key_id_plus_1();
-    inline void clear_has_received_key_id_plus_1();
+  // @@protoc_insertion_point(class_scope:sm.SocketMessage)
+ private:
+  inline void set_has_received_key_id_plus_1();
+  inline void clear_has_received_key_id_plus_1();
 
-    ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
-    ::google::protobuf::int32 received_key_id_plus_1_;
+  ::google::protobuf::int32 received_key_id_plus_1_;
 
-    mutable int _cached_size_;
-    ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
 
-    friend void  protobuf_AddDesc_sm_2eSocketMessage_2eproto();
-    friend void protobuf_AssignDesc_sm_2eSocketMessage_2eproto();
-    friend void protobuf_ShutdownFile_sm_2eSocketMessage_2eproto();
+  friend void  protobuf_AddDesc_sm_2eSocketMessage_2eproto();
+  friend void protobuf_AssignDesc_sm_2eSocketMessage_2eproto();
+  friend void protobuf_ShutdownFile_sm_2eSocketMessage_2eproto();
 
-    void InitAsDefaultInstance();
-    static SocketMessage* default_instance_;
+  void InitAsDefaultInstance();
+  static SocketMessage* default_instance_;
 };
 // ===================================================================
 
@@ -128,24 +126,24 @@ private:
 
 // required int32 received_key_id_plus_1 = 1;
 inline bool SocketMessage::has_received_key_id_plus_1() const {
-    return (_has_bits_[0] & 0x00000001u) != 0;
+  return (_has_bits_[0] & 0x00000001u) != 0;
 }
 inline void SocketMessage::set_has_received_key_id_plus_1() {
-    _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000001u;
 }
 inline void SocketMessage::clear_has_received_key_id_plus_1() {
-    _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void SocketMessage::clear_received_key_id_plus_1() {
-    received_key_id_plus_1_ = 0;
-    clear_has_received_key_id_plus_1();
+  received_key_id_plus_1_ = 0;
+  clear_has_received_key_id_plus_1();
 }
 inline ::google::protobuf::int32 SocketMessage::received_key_id_plus_1() const {
-    return received_key_id_plus_1_;
+  return received_key_id_plus_1_;
 }
 inline void SocketMessage::set_received_key_id_plus_1(::google::protobuf::int32 value) {
-    set_has_received_key_id_plus_1();
-    received_key_id_plus_1_ = value;
+  set_has_received_key_id_plus_1();
+  received_key_id_plus_1_ = value;
 }
 
 
