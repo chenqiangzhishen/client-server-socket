@@ -1,4 +1,0 @@
-package sm;
-message SocketMessage {
-    required int32 received_key_id_plus_1 =1;
-}
