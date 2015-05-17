@@ -16,7 +16,7 @@ server: $(server_objects)
 
 
 client: $(client_objects)
-	$(CC) -o client $(client_objects)  /home/cq/jsoncpp/lib/libjson.a  -lpthread -lprotobuf
+	$(CC) -o client $(client_objects)  /home/cq/jsoncpp/lib/libjson.a  -lpthread -lprotobuf -llog4cplus
 
 Socket: Socket.cpp
 ServerSocket: ServerSocket.cpp
