@@ -1,7 +1,7 @@
 // Implementation of the ServerSocket class
 #include "ServerSocket.h"
 #include "SocketException.h"
-#include "/home/cq/jsoncpp/include/json/json.h"
+#include "json/json.h"
 #include "sm.SocketMessage.pb.h"
 
 using namespace std;

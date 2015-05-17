@@ -1,5 +1,5 @@
 #include "ClientSocket.h"
-#include "/home/cq/jsoncpp/include/json/json.h"
+#include "json/json.h"
 #include "SocketException.h"
 #include "ConnectionPool.h"
 #include <iostream>
