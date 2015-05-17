@@ -97,14 +97,14 @@ void *thread_function(void *arg)
             cout << "We received this response from the server:\n" <<  s << endl;;
 
             //add logs
-			pthread_mutex_lock(&log_mutex);
+            pthread_mutex_lock(&log_mutex);
             pFileAppender = new FileAppender((filename));
             pSocketLogger = Logger::getInstance(("LoggerName"));
             pSocketLogger.addAppender(pFileAppender);
             writelog("TRACE", const_cast<char*>(s.c_str()));
             writelog("DEBUG", const_cast<char*>(s.c_str()));
             writelog("ERROR", const_cast<char*>(s.c_str()));
-			pthread_mutex_unlock(&log_mutex);
+            pthread_mutex_unlock(&log_mutex);
 
             ss.clear();
             ss.str("");
@@ -132,11 +132,11 @@ int main ( void )
     pthread_t thread;
 
 
-	if(0 != pthread_mutex_init(&log_mutex, NULL))
-	{
-		cerr << "log mutex initialization failed" << endl;
-		exit(EXIT_FAILURE);
-	}
+    if(0 != pthread_mutex_init(&log_mutex, NULL))
+    {
+        cerr << "log mutex initialization failed" << endl;
+        exit(EXIT_FAILURE);
+    }
 
     if(0 != pthread_create(&thread, NULL, thread_function, NULL))
     {
