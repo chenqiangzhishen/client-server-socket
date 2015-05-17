@@ -30,3 +30,4 @@ sm.SocketMessage.pb.h sm.SocketMessage.pb.cc:sm.SocketMessage.proto
 
 clean:
 	rm -f *.o server client
+	rm -f *.txt

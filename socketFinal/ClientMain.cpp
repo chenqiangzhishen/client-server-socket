@@ -26,9 +26,12 @@ const int poolLen = 5;
 int exit_flag = 1;
 
 
-char filename[50]=".";
+char filename[50];
 Logger pSocketLogger;
 SharedAppenderPtr pFileAppender;
+
+pthread_mutex_t log_mutex;
+
 void writelog(char* leval,char* info)
 {
     struct tm *p;
@@ -92,14 +95,16 @@ void *thread_function(void *arg)
             ss << recv_key_id;
             s = "value :" + ss.str();
             cout << "We received this response from the server:\n" <<  s << endl;;
-            //add logs
 
+            //add logs
+			pthread_mutex_lock(&log_mutex);
             pFileAppender = new FileAppender((filename));
             pSocketLogger = Logger::getInstance(("LoggerName"));
             pSocketLogger.addAppender(pFileAppender);
             writelog("TRACE", const_cast<char*>(s.c_str()));
             writelog("DEBUG", const_cast<char*>(s.c_str()));
             writelog("ERROR", const_cast<char*>(s.c_str()));
+			pthread_mutex_unlock(&log_mutex);
 
             ss.clear();
             ss.str("");
@@ -125,6 +130,13 @@ int main ( void )
     p = localtime(&lt);
     sprintf(filename, "%d-%d-%d.txt", (1900+p->tm_year), (1+p->tm_mon), p->tm_mday);
     pthread_t thread;
+
+
+	if(0 != pthread_mutex_init(&log_mutex, NULL))
+	{
+		cerr << "log mutex initialization failed" << endl;
+		exit(EXIT_FAILURE);
+	}
 
     if(0 != pthread_create(&thread, NULL, thread_function, NULL))
     {
