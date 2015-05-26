@@ -36,7 +36,7 @@ public:
     int recv_data(int sock, char* recv_buf);
     int send_data(int sock, char* send_buf, int buf_len);
     void run(int time_out);
-    static void* pthread_handle_message(void* para);
+	static void* pthread_handle_message(void* para);
 private:
     int m_listen_sock;
     int m_epoll_fd;
@@ -45,8 +45,8 @@ private:
 };
 
 
-typedef struct pthread_parm {
-    ServerSocket *m_ss;
-    struct epoll_event *m_ee;
-} pthreadParm;
+typedef struct pthread_parm{
+	ServerSocket *m_ss;
+	struct epoll_event *m_ee;
+}pthreadParm;
 #endif
