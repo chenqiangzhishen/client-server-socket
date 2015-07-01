@@ -361,9 +361,9 @@ void ServerSocket::run(int time_out)
                 }
                 else
                 {
-                    pthread_mutex_lock(&thread_mutex);
+                    //pthread_mutex_lock(&thread_mutex);
                     pthread_attr_t attr;
-                    pthread_t threadId;
+                    pthread_t threadId(i);
 
                     pthread_attr_init(&attr);
                     pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
@@ -376,7 +376,7 @@ void ServerSocket::run(int time_out)
                         perror("server in epoll, pthread_creat error!");
                         exit(-1);
                     }
-                    pthread_mutex_unlock(&thread_mutex);
+                    //pthread_mutex_unlock(&thread_mutex);
                 }
             }
         }
