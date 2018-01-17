@@ -14,5 +14,15 @@
 5 . client和server相关的配置通过配置文件进行设计，配置文件可以是纯文本形式，也可以是json格式。
 
 # 运行结果演示
-![client-server-socket](assets/result)
 
+本人花了一天的时间写出了程序的初稿，给出了完成实现，具体是研究了该小项目需要利用的相关技术（比如：socket多线程编程，socket连接池，epoll机制，Json序列化及反序列化，protobuf序列化与反序列化，日志库等）。
+
+用到了如下的开源工具：
+
+protobuf (google的一种高效且极具兼容性的二进制数据传输、交换格式）
+
+jsoncpp (json 序列化及反序列化的C++工具，当时我还不知道什么是（反）序列化）
+
+log4cplus (日志比较全面的C++开源工具)
+
+![client-server-socket](assets/result)
